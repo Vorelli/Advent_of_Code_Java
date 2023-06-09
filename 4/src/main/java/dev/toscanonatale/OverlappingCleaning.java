@@ -40,7 +40,8 @@ public class OverlappingCleaning {
             ranges[i + 1] = Integer.parseInt(nums[1]);
             i += 2;
         }
-        System.out.println("");
-        return (ranges[0] >= ranges[2] && ranges[1] <= ranges[3]) || (ranges[2] >= ranges[0] && ranges[3] <= ranges[1]);
+        return (ranges[0] >= ranges[2] && ranges[0] <= ranges[3]) || (ranges[2] >= ranges[0] && ranges[2] <= ranges[1])
+                || (ranges[1] >= ranges[2] && ranges[1] <= ranges[3])
+                || (ranges[3] >= ranges[0] && ranges[3] <= ranges[1]);
     }
 }

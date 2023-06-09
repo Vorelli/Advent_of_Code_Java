@@ -10,6 +10,8 @@ public class OverlappingCleaningTest {
     @Test
     public void testExample() {
         File f = new File("src/test/assets/test.txt");
-        assertTrue(OverlappingCleaning.solve(f.getAbsoluteFile()) == 2);
+        int numOverlaps = OverlappingCleaning.solve(f.getAbsoluteFile());
+        System.out.println("overlapping: " + numOverlaps);
+        assertTrue(numOverlaps == 4);
     }
 }
