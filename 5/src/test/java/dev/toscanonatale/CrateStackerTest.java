@@ -26,6 +26,6 @@ public class CrateStackerTest {
         File f = new File("src/test/assets/test.txt");
         String result = CrateStacker.solve(f.getAbsoluteFile());
         System.out.println("Result is :" + result);
-        assertTrue(result.equals("CMZ"));
+        assertTrue(result.equals("MCD"));
     }
 }

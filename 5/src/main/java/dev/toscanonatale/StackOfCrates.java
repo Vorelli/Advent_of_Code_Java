@@ -24,6 +24,14 @@ public class StackOfCrates {
         System.out.println("");
     }
 
+    public String[] grab(int quantity) {
+        String[] crates = new String[quantity];
+        for (int i = quantity - 1; i >= 0; i--) {
+            crates[i] = this.pop();
+        }
+        return crates;
+    }
+
     public String pop() {
         if (this.stack.size() > 0)
             return this.stack.remove(this.stack.size() - 1);

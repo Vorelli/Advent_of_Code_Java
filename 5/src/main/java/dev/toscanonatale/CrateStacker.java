@@ -32,11 +32,9 @@ public class CrateStacker {
 
             for (int i = 0; i + 2 < lineOfItems.length(); i += 4) {
                 char c = lineOfItems.charAt(i + 1);
-                System.out.println("Read character: " + c);
                 if (c != ' ' && Character.isAlphabetic(c)) {
                     int index = i / 4;
                     StackOfCrates stack = stacks.get(index);
-                    System.out.println("Adding to a stack of length: " + stack.stack.size() + " and index of " + index);
                     stack.addFromTop(c + "");
                 }
             }
@@ -59,11 +57,9 @@ public class CrateStacker {
             Integer from = Integer.parseInt(nums[3]) - 1;
             Integer to = Integer.parseInt(nums[5]) - 1;
             Integer quantity = Integer.parseInt(nums[1]);
-            System.out.println("Moving " + quantity + " boxes from " + from + " to " + to);
-            for (int i = 0; i < quantity; i++) {
-                String temp = stacks.get(from).pop();
-                System.out.println("Moving: " + temp);
-                stacks.get(to).add(temp);
+            String[] temp = stacks.get(from).grab(quantity);
+            for (String crate : temp) {
+                stacks.get(to).add(crate);
             }
         }
     }
