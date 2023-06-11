@@ -9,7 +9,7 @@ public class CrateStacker {
     public static void main(String... args) {
         if (args.length == 0) {
             System.out.println("You need to provide a filepath as your first argument");
-            return;
+            System.out.println("The final result is: " + solve(new File(args[0])));
         }
     }
 
@@ -20,7 +20,7 @@ public class CrateStacker {
             String lineOfItems = s.nextLine();
             if (lineOfItems.isEmpty()) {
                 for (StackOfCrates t : stacks) {
-                    System.out.println(t.stack.get(0));
+                    System.out.println("Is there where:" + t.stack.get(0));
                 }
                 return stacks;
             }
@@ -39,7 +39,7 @@ public class CrateStacker {
                     int index = i / 4;
                     StackOfCrates stack = stacks.get(index);
                     System.out.println("Adding to a stack of length: " + stack.stack.size() + " and index of " + index);
-                    stack.add(c + "");
+                    stack.addFromTop(c + "");
                 }
             }
 
@@ -55,10 +55,26 @@ public class CrateStacker {
         return result;
     }
 
+    public static void executeInstructions(Scanner s, ArrayList<StackOfCrates> stacks) {
+        while (s.hasNextLine()) {
+            String[] nums = s.nextLine().split(" ");
+            Integer from = Integer.parseInt(nums[3]) - 1;
+            Integer to = Integer.parseInt(nums[5]) - 1;
+            Integer quantity = Integer.parseInt(nums[1]);
+            System.out.println("Moving " + quantity + " boxes from " + from + " to " + to);
+            for (int i = 0; i < quantity; i++) {
+                String temp = stacks.get(from).pop();
+                System.out.println("Moving: " + temp);
+                stacks.get(to).add(temp);
+            }
+        }
+    }
+
     public static String solve(File f) {
         try {
             Scanner s = new Scanner(f);
             ArrayList<StackOfCrates> stack = readStacks(s);
+            executeInstructions(s, stack);
             return fromTop(stack);
         } catch (Exception e) {
             e.printStackTrace();
