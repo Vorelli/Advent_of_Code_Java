@@ -11,6 +11,8 @@ public class CrateStacker {
             System.out.println("You need to provide a filepath as your first argument");
             System.out.println("The final result is: " + solve(new File(args[0])));
         }
+        String result = solve(new File(args[0]));
+        System.out.println("The result of the crates: " + result);
     }
 
     public static ArrayList<StackOfCrates> readStacks(Scanner s) throws Exception {
@@ -19,16 +21,12 @@ public class CrateStacker {
         while (s.hasNextLine()) {
             String lineOfItems = s.nextLine();
             if (lineOfItems.isEmpty()) {
-                for (StackOfCrates t : stacks) {
-                    System.out.println("Is there where:" + t.stack.get(0));
-                }
                 return stacks;
             }
             if (firstTime) {
                 for (int i = 0; (i + 2) < lineOfItems.length(); i += 4) {
                     stacks.add(new StackOfCrates());
                 }
-                System.out.println("Created: " + stacks.size() + " stacks");
                 firstTime = false;
             }
 

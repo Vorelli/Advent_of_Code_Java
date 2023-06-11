@@ -14,11 +14,7 @@ public class StackOfCrates {
     }
 
     public void add(String s) {
-        System.out.println("Before:");
-        this.print();
         this.stack.add(s);
-        System.out.println("After:");
-        this.print();
     }
 
     public void print() {
