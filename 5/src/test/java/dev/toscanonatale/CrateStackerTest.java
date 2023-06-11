@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class CrateStackerTest {
     @Test
-    public void exampleTest() {
+    public void testReadingAndFromTop() {
         File f = new File("src/test/assets/test.txt");
         try {
             Scanner s = new Scanner(f);
@@ -19,5 +19,12 @@ public class CrateStackerTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void exampleTest() {
+        File f = new File("src/test/assets/test.txt");
+        String result = CrateStacker.solve(f.getAbsoluteFile());
+        assertTrue(result.equals("CMZ"));
     }
 }
