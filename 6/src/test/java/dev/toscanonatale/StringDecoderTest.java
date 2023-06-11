@@ -16,26 +16,26 @@ public class StringDecoderTest {
 
     @Test
     public void testExample1() {
-        testFile("src/test/assets/test.txt", 7);
+        testFile("src/test/assets/test.txt", 19);
     }
 
     @Test
     public void testExample2() {
-        testFile("src/test/assets/test2.txt", 5);
+        testFile("src/test/assets/test2.txt", 23);
     }
 
     @Test
     public void testExample3() {
-        testFile("src/test/assets/test3.txt", 6);
+        testFile("src/test/assets/test3.txt", 23);
     }
 
     @Test
     public void testExample4() {
-        testFile("src/test/assets/test4.txt", 10);
+        testFile("src/test/assets/test4.txt", 29);
     }
 
     @Test
     public void testExample5() {
-        testFile("src/test/assets/test5.txt", 11);
+        testFile("src/test/assets/test5.txt", 26);
     }
 }

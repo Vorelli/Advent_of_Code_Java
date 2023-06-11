@@ -20,12 +20,12 @@ public class StringDecoder {
             String line = s.nextLine();
             for (int i = 0; i < line.length(); i++) {
                 HashSet<Character> unique = new HashSet<>();
-                for (int j = i; j < i + 4; j++) {
+                for (int j = i; j < i + 14; j++) {
                     unique.add(line.charAt(j));
                 }
-                if (unique.size() == 4) {
+                if (unique.size() == 14) {
                     s.close();
-                    return i + 4;
+                    return i + 14;
                 }
             }
             s.close();
