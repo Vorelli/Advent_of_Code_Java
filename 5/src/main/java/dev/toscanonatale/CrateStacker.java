@@ -5,24 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class StackOfCrates {
-    public ArrayList<String> stack;
-
-    public StackOfCrates() {
-        this.stack = new ArrayList<>();
-    }
-
-    public void add(String s) {
-        this.stack.add(s);
-    }
-
-    public String pop() {
-        if (this.stack.size() > 0)
-            return this.stack.remove(0);
-        return "";
-    }
-}
-
 public class CrateStacker {
     public static void main(String... args) {
         if (args.length == 0) {
