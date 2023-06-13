@@ -18,29 +18,47 @@ public class DirectoryScanner {
         try {
             Scanner s = new Scanner(f);
             String command = "";
-            FSDir root = new FSDir("/");
+            FSDir root = new FSDir("/", null);
             FSDir cwd = root;
-            while(s.hasNextLine()) {
+            while (s.hasNextLine()) {
                 String line = s.nextLine();
-                if(line.startsWith("$")) {
+                System.out.println("line: " + line);
+                if (line.startsWith("$")) {
                     // "command"
-                    command = line.split("$ ")[0];
-                    if(command.startsWith("cd")) {
-                        String[] commands = command.split(" ")
-                        cwd = commands[1].equals("/") ? root : cwd.findChild(commands[1]);
+                    command = line.substring(2);
+                    System.out.println("Command: " + command);
+                    if (command.startsWith("cd")) {
+                        String[] commands = command.split(" ");
+                        if (commands[1].equals("..")) {
+                            System.out.println("Going up!");
+                            cwd = cwd.getParent();
+                        } else if (commands[1].equals("/")) {
+                            System.out.println("Going to root");
+                            cwd = root;
+                        } else {
+                            System.out.println("Going to: " + commands[1]);
+                            cwd = cwd.findChild(commands[1]);
+                        }
                     }
                 } else {
                     // result of command
-                    switch(command) {
+                    switch (command) {
                         case "ls":
-                            String childPath = cwd.getPath() + "/" + "directoryName";
+                            System.out.println("LS");
+                            String[] lineSplit = line.split(" ");
+                            String childName = lineSplit[1];
+                            String childPath = cwd.getPath() + childName;
+                            if (lineSplit[0].equals("dir"))
+                                childPath += "/";
                             FSNode child;
                             // need to determine whether child is dir or file
-                            if("dir".equals("dir")) {
-                                child = new FSDir(childPath);
+                            if (line.startsWith("dir")) {
+                                child = new FSDir(childPath, cwd);
                             } else {
-                                child = new FSFile(childPath, 0);
+                                int size = Integer.parseInt(lineSplit[0]);
+                                child = new FSFile(childPath, cwd, size);
                             }
+                            System.out.println("Child: " + child.getPath() + "  " + child.getSize());
                             cwd.addChild(child);
                             break;
                     }
@@ -48,8 +66,8 @@ public class DirectoryScanner {
             }
             s.close();
             return root.getDirUnder100k();
-        } catch(Exception e) {
-            if(e instanceof FileNotFoundException) {
+        } catch (Exception e) {
+            if (e instanceof FileNotFoundException) {
                 System.out.println("Failed to find file: " + f.getPath());
             }
             e.printStackTrace();

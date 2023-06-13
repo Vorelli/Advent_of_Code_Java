@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class FSDir extends FSNode {
     private ArrayList<FSNode> children;
 
-    public FSDir(String path) {
-        super(path);
+    public FSDir(String path, FSDir parent) {
+        super(path, parent);
         this.children = new ArrayList<>();
     }
 

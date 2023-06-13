@@ -3,8 +3,8 @@ package dev.toscanonatale;
 public class FSFile extends FSNode {
     private int size;
 
-    public FSFile(String path, int size) {
-        super(path);
+    public FSFile(String path, FSDir parent, int size) {
+        super(path, parent);
         this.size = size;
     }
 
