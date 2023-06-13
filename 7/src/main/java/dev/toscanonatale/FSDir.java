@@ -45,4 +45,25 @@ public class FSDir extends FSNode {
         }
         return sum;
     }
+
+    public int findClosestToSize(int size) {
+        int ret = Integer.MAX_VALUE;
+        if (this.getSize() >= size)
+            ret = this.getSize();
+        for (FSNode child : this.children) {
+            if (child instanceof FSDir) {
+                int childSize = ((FSDir) child).findClosestToSize(size);
+                if (childSize >= size) {
+                    ret = Math.min(ret, childSize);
+                }
+            }
+        }
+        return ret;
+    }
+
+    public int getSmallestForUpdate() {
+        int start = (70000000 - this.getSize());
+        int needed = 30000000 - start;
+        return this.findClosestToSize(needed);
+    }
 }

@@ -10,6 +10,6 @@ public class DirectoryScannerTest {
     @Test
     public void exampleTest() {
         File f = new File("src/test/assets/test.txt");
-        assertTrue(DirectoryScanner.solve(f.getAbsoluteFile()) == 95437);
+        assertTrue(DirectoryScanner.solve(f.getAbsoluteFile()) == 24933642);
     }
 }
