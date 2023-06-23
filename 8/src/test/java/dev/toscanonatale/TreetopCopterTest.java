@@ -9,6 +9,6 @@ import org.junit.Test;
 public class TreetopCopterTest {
     @Test
     public void exampleTest() {
-        assertTrue(TreetopCopter.solve(new File("src/test/resources/example.txt").getAbsoluteFile()) == 21);
+        assertTrue(TreetopCopter.solvePartOne(new File("src/test/resources/example.txt").getAbsoluteFile()) == 21);
     }
 }

@@ -7,11 +7,23 @@ import java.util.Scanner;
 public class TreetopCopter {
     public static void main(String... args) {
         System.out.println("args: " + args.toString());
-        if (args.length == 0) {
-            System.out.println("Please provide a filename for the first argument");
+        if (args.length <= 1) {
+            System.out.println(
+                    "Please provide a method number (1 or 2) for the first argument and a filename for the second.");
             return;
         }
-        System.out.println("The answer is : " + solve(new File(args[0])));
+        switch (args[0]) {
+            case "1":
+                System.out.println("The answer is : " + solvePartOne(new File(args[1])));
+                break;
+            case "2":
+                System.out.println("The answer is : " + solvePartTwo(new File(args[1])));
+                break;
+        }
+    }
+
+    public static int solvePartTwo(File f) {
+        return 0;
     }
 
     public static boolean check(char dir, int r, int c, int[][] values, boolean[][] answers) {
@@ -44,7 +56,7 @@ public class TreetopCopter {
         return true;
     }
 
-    public static int solve(File f) {
+    public static int solvePartOne(File f) {
         char[] dirs = { 'l', 'r', 'u', 'd' };
         try {
             Scanner s = new Scanner(f);
