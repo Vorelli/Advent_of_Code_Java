@@ -60,6 +60,39 @@ public class RopeSimulator {
     }
 
     public static int solvePartTwo(File f) {
-        return 0;
+        Board b = new Board();
+        Tail t = new Tail();
+        Head[] h = new Head[9];
+        Knot last = t;
+        for (int i = 0; i < 9; i++) {
+            h[i] = new Head(last);
+            last = h[i];
+        }
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNextLine()) {
+                String line = s.nextLine();
+                String[] split = line.split(" ");
+                Position diff = getPos(split[0].charAt(0));
+                for (int i = 0; i < Integer.parseInt(split[1]); i++) {
+                    h[8].getPos().add(diff);
+                    Knot current = h[8];
+                    while (true) {
+                        if (current instanceof Head) {
+                            ((Head) current).getTail().follow(current.getPos());
+                            current = ((Head) current).getTail();
+                        } else {
+                            b.visit(current.getPos());
+                            break;
+                        }
+                    }
+                }
+            }
+            s.close();
+        } catch (Exception e) {
+            System.out.println("Failed!");
+            e.printStackTrace();
+        }
+        return b.getCount();
     }
 }

@@ -1,9 +1,9 @@
 package dev.toscanonatale;
 
 public class Head extends Knot {
-    private Tail tail;
+    private Knot tail;
 
-    public Head(Tail t) {
+    public Head(Knot t) {
         this.tail = t;
     }
 
@@ -11,7 +11,7 @@ public class Head extends Knot {
         super.moveTo(p);
     }
 
-    public Tail getTail() {
+    public Knot getTail() {
         return this.tail;
     }
 }
