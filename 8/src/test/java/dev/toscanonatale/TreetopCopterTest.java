@@ -11,4 +11,9 @@ public class TreetopCopterTest {
     public void exampleTest() {
         assertTrue(TreetopCopter.solvePartOne(new File("src/test/resources/example.txt").getAbsoluteFile()) == 21);
     }
+
+    @Test
+    public void exampleTestPartTwo() {
+        assertTrue(TreetopCopter.solvePartTwo(new File("src/test/resources/example.txt").getAbsoluteFile()) == 8);
+    }
 }

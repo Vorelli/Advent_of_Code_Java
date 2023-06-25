@@ -23,7 +23,91 @@ public class TreetopCopter {
     }
 
     public static int solvePartTwo(File f) {
-        return 0;
+        char[] dirs = { 'l', 'r', 'u', 'd' };
+        try {
+            Scanner s = new Scanner(f);
+            int height = 0;
+            int width = 0;
+            ArrayList<String> lines = new ArrayList<>();
+            while (s.hasNextLine()) {
+                height++;
+                String line = s.nextLine();
+                lines.add(line);
+                if (width == 0)
+                    width = line.length();
+            }
+            int[][] values = new int[width][height];
+            for (int i = 0; i < lines.size(); i++) {
+                String line = lines.get(i);
+                for (int j = 0; j < line.length(); j++) {
+                    int next = Integer.parseInt(line.charAt(j) + "");
+                    values[i][j] = next;
+                }
+            }
+            int max = 0;
+
+            for (int r = 1; r < values.length - 1; r++) {
+                for (int c = 1; c < values[r].length - 1; c++) {
+                    int scenicScore = 1;
+                    for (int i = 0; i < dirs.length; i++) {
+                        scenicScore *= score(dirs[i], r, c, values);
+                    }
+                    if (scenicScore > max)
+                        max = scenicScore;
+                }
+            }
+            s.close();
+            return max;
+        } catch (Exception e) {
+            System.out.println("Encountered error");
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public static int score(char dir, int r, int c, int[][] values) {
+        int startI = 0;
+        int inc = 0;
+        switch (dir) {
+            case 'l':
+                startI = c;
+                inc = -1;
+                break;
+            case 'r':
+                startI = c;
+                inc = 1;
+                break;
+            case 'u':
+                startI = r;
+                inc = -1;
+                break;
+            case 'd':
+                startI = r;
+                inc = 1;
+                break;
+        }
+        startI += inc;
+
+        int scenicScore = 0;
+        switch (dir) {
+            case 'l':
+            case 'r':
+                for (int i = startI; i >= 0 && i < values[0].length; i += inc) {
+                    scenicScore++;
+                    if (values[r][i] >= values[r][c])
+                        break;
+                }
+                break;
+            case 'u':
+            case 'd':
+                for (int i = startI; i >= 0 && i < values.length; i += inc) {
+                    scenicScore++;
+                    if (values[i][c] >= values[r][c])
+                        break;
+                }
+                break;
+        }
+        return scenicScore;
     }
 
     public static boolean check(char dir, int r, int c, int[][] values, boolean[][] answers) {
