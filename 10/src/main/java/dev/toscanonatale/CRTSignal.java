@@ -18,7 +18,8 @@ public class CRTSignal {
                 break;
             case "2":
             default:
-                System.out.println("The part two solution is: " + solvePartTwo(f));
+                System.out.println("The part two solution is: ");
+                solvePartTwo(f);
                 break;
         }
     }
@@ -40,7 +41,20 @@ public class CRTSignal {
         return 0;
     }
 
-    public static int solvePartTwo(File f) {
-        return 0;
+    public static void solvePartTwo(File f) {
+        try {
+            CPU cpu = new CPU();
+            Scanner s = new Scanner(f);
+            while (s.hasNextLine()) {
+                String line = s.nextLine();
+                cpu.process(line);
+            }
+            s.close();
+            cpu.printCRT();
+        } catch (Exception e) {
+            System.out.println("Solve failed:");
+            e.printStackTrace();
+        }
+        return;
     }
 }

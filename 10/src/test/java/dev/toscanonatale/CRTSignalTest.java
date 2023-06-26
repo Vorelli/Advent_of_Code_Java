@@ -13,4 +13,9 @@ public class CRTSignalTest {
     public void exampleTest() {
         assertTrue(CRTSignal.solvePartOne(f) == 13140);
     }
+
+    @Test
+    public void exampleTest2() {
+        CRTSignal.solvePartTwo(f);
+    }
 }
