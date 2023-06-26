@@ -1,6 +1,7 @@
 package dev.toscanonatale;
 
 import java.io.File;
+import java.util.Scanner;
 
 public class CRTSignal {
     public static void main(String... args) {
@@ -23,6 +24,19 @@ public class CRTSignal {
     }
 
     public static int solvePartOne(File f) {
+        try {
+            CPU cpu = new CPU();
+            Scanner s = new Scanner(f);
+            while (s.hasNextLine()) {
+                String line = s.nextLine();
+                cpu.process(line);
+            }
+            s.close();
+            return cpu.getResult();
+        } catch (Exception e) {
+            System.out.println("Solve failed:");
+            e.printStackTrace();
+        }
         return 0;
     }
 
