@@ -11,6 +11,11 @@ public class MonkeyBusinessTest {
 
     @Test
     public void exampleTest() {
-        assertTrue(MonkeyBusiness.solvePartOne(f) == 10605);
+        assertTrue(MonkeyBusiness.solve(f, true) == 10605);
+    }
+
+    @Test
+    public void exmapleTestPartTwo() {
+        assertTrue(MonkeyBusiness.solve(f, false) == 2713310158l);
     }
 }

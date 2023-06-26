@@ -1,6 +1,7 @@
 package dev.toscanonatale;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,9 +16,10 @@ public class MonkeyBusiness {
         switch (args[0]) {
             default:
             case "1":
-                System.out.println("The part one solution is: " + solvePartOne(f));
+                System.out.println("The part one solution is: " + solve(f, true));
                 break;
             case "2":
+                System.out.println("The part two solution is: " + solve(f, false));
                 break;
         }
     }
@@ -38,7 +40,7 @@ public class MonkeyBusiness {
                 case 1:
                     String[] items = line.split(": ")[1].split(", ");
                     for (String item : items) {
-                        m.addItem(Integer.parseInt(item));
+                        m.addItem(new BigInteger(item));
                     }
                     break;
                 case 2:
@@ -59,13 +61,18 @@ public class MonkeyBusiness {
         return monkeys;
     }
 
-    public static void processTurn(ArrayList<Monkey> monkeys, Player p) {
+    public static void processTurn(ArrayList<Monkey> monkeys, Player p, boolean partOne) {
+        BigInteger superMod = BigInteger.ONE;
+        for (Monkey m : monkeys) {
+            superMod = superMod.multiply(BigInteger.valueOf(m.test));
+        }
+
         for (Monkey m : monkeys) {
             while (m.hasNextItem()) {
-                long item = m.getNextItem();
+                BigInteger item = m.getNextItem();
                 p.setWorry(item);
                 String[] splitOp = m.operation.split(" ");
-                int num = Integer.parseInt(splitOp[1].equals("old") ? (p.getWorry() + "") : splitOp[1]);
+                BigInteger num = splitOp[1].equals("old") ? p.getWorry() : new BigInteger(splitOp[1]);
                 switch (splitOp[0]) {
                     case "*":
                         p.mulWorry(num);
@@ -74,18 +81,21 @@ public class MonkeyBusiness {
                         p.addWorry(num);
                         break;
                 }
-                p.chill();
-                if (p.getWorry() % m.test == 0) {
-                    monkeys.get(m.trueThrow).addItem(p.getWorry());
+                if (partOne) {
+                    p.chill();
+                }
+
+                if (p.getWorry().mod(BigInteger.valueOf(m.test)).equals(BigInteger.valueOf(0))) {
+                    monkeys.get(m.trueThrow).addItem(p.getWorry().mod(superMod));
                 } else {
-                    monkeys.get(m.falseThrow).addItem(p.getWorry());
+                    monkeys.get(m.falseThrow).addItem(p.getWorry().mod(superMod));
                 }
             }
         }
     }
 
-    public static int getSolution(ArrayList<Monkey> monkeys) {
-        int[] max = { 0, 0 };
+    public static long getSolution(ArrayList<Monkey> monkeys) {
+        long[] max = { 0, 0 };
         for (Monkey m : monkeys) {
             if (m.getInspections() > max[1]) {
                 if (m.getInspections() > max[0]) {
@@ -104,7 +114,7 @@ public class MonkeyBusiness {
         int i = 0;
         for (Monkey m : monkeys) {
             System.out.print("Monkey " + i);
-            for (long item : m.getItems()) {
+            for (BigInteger item : m.getItems()) {
                 System.out.print(" " + item + ",");
             }
             System.out.println();
@@ -112,17 +122,14 @@ public class MonkeyBusiness {
         }
     }
 
-    public static int solvePartOne(File f) {
+    public static long solve(File f, boolean partOne) {
         try {
             Scanner s = new Scanner(f);
             ArrayList<Monkey> monkeys = getMonkeys(s);
             Player p = new Player();
             s.close();
-            for (int i = 0; i < 20; i++) {
-                processTurn(monkeys, p);
-                System.out.println("Round " + (i + 1));
-                printMonkeys(monkeys);
-                System.out.println();
+            for (int i = 0; i < (partOne ? 20 : 10000); i++) {
+                processTurn(monkeys, p, partOne);
             }
             return getSolution(monkeys);
         } catch (Exception e) {

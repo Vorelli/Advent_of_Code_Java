@@ -1,25 +1,31 @@
 package dev.toscanonatale;
 
-public class Player {
-    private long worry = 0;
+import java.math.BigInteger;
 
-    public void addWorry(int amt) {
-        this.worry += amt;
+public class Player {
+    private BigInteger worry = BigInteger.valueOf(0);
+
+    public void addWorry(BigInteger amt) {
+        this.worry = this.worry.add(amt);
     }
 
-    public void setWorry(long amt) {
+    public void setWorry(BigInteger amt) {
         this.worry = amt;
     }
 
+    public void mulWorry(BigInteger amt) {
+        this.worry = this.worry.multiply((amt));
+    }
+
     public void mulWorry(int amt) {
-        this.worry *= amt;
+        this.worry = this.worry.multiply(BigInteger.valueOf(amt));
     }
 
     public void chill() {
-        this.worry = this.worry / 3;
+        this.worry = this.worry.divide(BigInteger.valueOf(3));
     }
 
-    public long getWorry() {
+    public BigInteger getWorry() {
         return this.worry;
     }
 }

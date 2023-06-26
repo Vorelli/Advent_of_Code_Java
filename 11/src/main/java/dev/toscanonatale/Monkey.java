@@ -1,14 +1,15 @@
 package dev.toscanonatale;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Monkey {
-    public ArrayList<Long> items;
+    public ArrayList<BigInteger> items;
     public String operation;
     public int test;
     public int trueThrow;
     public int falseThrow;
-    private int inspections = 0;
+    private long inspections = 0;
 
     public Monkey() {
         this.items = new ArrayList<>();
@@ -18,20 +19,20 @@ public class Monkey {
         return this.items.size() > 0;
     }
 
-    public ArrayList<Long> getItems() {
+    public ArrayList<BigInteger> getItems() {
         return this.items;
     }
 
-    public long getNextItem() {
+    public BigInteger getNextItem() {
         inspections++;
         return items.remove(0);
     }
 
-    public int getInspections() {
+    public long getInspections() {
         return this.inspections;
     }
 
-    public void addItem(long item) {
+    public void addItem(BigInteger item) {
         this.items.add(item);
     }
 }
